@@ -150,3 +150,7 @@ alias xclip="xclip -selection clipboard"
 
 # latex
 alias biber-uplatex="biber --bblencoding=utf8 -u -U --output_safechars"
+
+# completion
+autoload -U compinit
+compinit
