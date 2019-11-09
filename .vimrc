@@ -14,12 +14,6 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-let g:mapleader = ','
-let g:maplocalleader = ' '
-
-" 全角文字の幅
-set ambiwidth=double
-
 " 行番号を表示
 set number
 
@@ -35,11 +29,6 @@ set hlsearch
 
 " ビープ音をvisualbellに
 set visualbell
-
-" current directoryを自動移動
-augroup MyAutoCmd
-  autocmd BufEnter * silent! lcd %:p:h
-augroup END
 
 " insertモードでEmacs風のカーソル移動
 inoremap <C-f> <Right>
@@ -65,12 +54,6 @@ augroup END
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 nnoremap Q <Nop>
-
-" jkで表示上の行を動くように
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
 
 " spell check
 set spelllang=en,cjk
