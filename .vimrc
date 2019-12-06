@@ -57,3 +57,10 @@ nnoremap Q <Nop>
 
 " spell check
 set spelllang=en,cjk
+
+if has('nvim')
+  set inccommand=split
+endif
+
+" 保存しなくてもバッファ間の移動ができるように
+set hidden
