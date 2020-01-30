@@ -1,0 +1,33 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+hook_add = '''
+let g:dein#types#git#clone_depth=1
+'''
+
+[[plugins]]
+repo = 'haya14busa/dein-command.vim'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'sheerun/vim-polyglot'
+hook_add = '''
+let g:polyglot_disabled = ['tex', 'typescript', 'tsx', 'typescript.tsx']
+'''
+
+[[plugins]]
+repo = 'arcticicestudio/nord-vim'
+hook_add = '''
+set termguicolors
+let g:nord_cursor_line_number_background = 1
+let g:nord_uniform_diff_background = 1
+" override colors
+augroup nord-overrides
+  autocmd!
+  autocmd ColorScheme nord highlight LineNr guifg='#616E88'
+augroup END
+colorscheme nord
+" lightline
+" let g:lightline.colorscheme = 'nord'
+'''
