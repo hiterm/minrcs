@@ -16,6 +16,7 @@ augroup END
 
 " 行番号を表示
 set number
+set relativenumber
 
 " コマンドラインを便利に
 set wildmenu
@@ -24,11 +25,15 @@ set wildmenu
 set ignorecase
 set smartcase
 
-" 検索結果をハイライト
+" 検索結果
 set hlsearch
+set incsearch
 
 " ビープ音をvisualbellに
 set visualbell
+
+" マウス
+set mouse=a
 
 " insertモードでEmacs風のカーソル移動
 inoremap <C-f> <Right>
