@@ -29,5 +29,205 @@ augroup nord-overrides
 augroup END
 colorscheme nord
 " lightline
-" let g:lightline.colorscheme = 'nord'
+let g:lightline = {}
+let g:lightline.colorscheme = 'nord'
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+# fzf
+[[plugins]]
+repo = "junegunn/fzf"
+merged = 0
+hook_add = '''
+source ~/.vim/fzf.rc.vim
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+merged = 0
+
+[[plugins]]
+repo = 'dominickng/fzf-session.vim.git'
+depends = 'fzf'
+hook_add = '''
+let g:fzf_session_path = '~/.vim_sessions'
+'''
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_add = 'let g:rainbow_active = 1'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'
+
+[[plugins]]
+repo = 'mattn/vim-lexiv'
+
+[[plugins]]
+repo = 'justinmk/vim-sneak'
+hook_add = '''
+let g:sneak#label = 1
+'''
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+# textobj
+[[plugins]]
+repo = 'michaeljsmith/vim-indent-object'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'kana/vim-textobj-line'
+
+# git
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'rhysd/committia.vim'
+on_path = 'COMMIT_EDITMSG'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+on_map = '<Plug>(anzu-'
+hook_add = '''
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+'''
+
+[[plugins]]
+repo = 'Shougo/echodoc.vim'
+on_event = 'CompleteDone'
+hook_source = '''
+let g:echodoc#type = 'virtual'
+call echodoc#enable()
+'''
+
+[[plugins]]
+repo = 'kana/vim-niceblock'
+on_map = '<Plug>'
+hook_add = '''
+xmap I  <Plug>(niceblock-I)
+xmap A  <Plug>(niceblock-A)
+'''
+
+# completion
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = "has('nvim') && has('python3')"
+on_event = 'InsertEnter'
+hook_add = '''
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+  return deoplete#close_popup() . "\<CR>"
+endfunction
+'''
+
+[[plugins]]
+repo = 'ncm2/float-preview.nvim'
+on_source = 'deoplete.nvim'
+hook_add = '''
+set completeopt-=preview
+function! s:set_preview_docked()
+  if winwidth('%') > 80
+    let g:float_preview#docked = 0
+  else
+    let g:float_preview#docked = 1
+  endif
+endfunction
+call s:set_preview_docked()
+augroup MyFloadPreview
+  autocmd!
+  autocmd VimResized * call s:set_preview_docked()
+augroup END
+'''
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_add = '''
+let g:LanguageClient_diagnosticsEnable = 1
+let g:LanguageClient_useVirtualText = 'CodeLens'
+let g:LanguageClient_selectionUI = 'fzf'
+let g:LanguageClient_hasSnippetSupport = 1
+
+let g:LanguageClient_settingsPath = '~/.vim/settings.json'
+
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rust-analyzer'],
+      \ 'python': ['pyls'],
+      \ 'ruby': ['solargraph', 'stdio'],
+      \ 'javascript': ['javascript-typescript-stdio'],
+      \ 'typescript': ['javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['javascript-typescript-stdio'],
+      \ 'typescript.tsx': ['javascript-typescript-stdio'],
+      \ 'cpp': ['clangd'],
+      \ }
+
+let g:LanguageClient_rootMarkers = {
+" other root markers....
+      \ 'javascript': ['jsconfig.json'],
+      \ 'typescript': ['tsconfig.json'],
+      \ }
+
+let g:LanguageClient_diagnosticsDisplay =
+      \ {
+      \     1: {
+      \         "name": "Error",
+      \         "texthl": "ALEError",
+      \         "signText": "",
+      \         "signTexthl": "ALEErrorSign",
+      \         "virtualTexthl": "Error",
+      \     },
+      \     2: {
+      \         "name": "Warning",
+      \         "texthl": "ALEWarning",
+      \         "signText": "",
+      \         "signTexthl": "ALEWarningSign",
+      \         "virtualTexthl": "Todo",
+      \     },
+      \     3: {
+      \         "name": "Information",
+      \         "texthl": "ALEInfo",
+      \         "signText": "",
+      \         "signTexthl": "ALEInfoSign",
+      \         "virtualTexthl": "Todo",
+      \     },
+      \     4: {
+      \         "name": "Hint",
+      \         "texthl": "ALEInfo",
+      \         "signText": "ﯦ",
+      \         "signTexthl": "ALEInfoSign",
+      \         "virtualTexthl": "Todo",
+      \     },
+      \ }
+
+" The prefix key.
+nnoremap [lsp] <Nop>
+nmap     <Space>l      [lsp]
+
+nnoremap [lsp]l :call LanguageClient_contextMenu()<CR>
+nnoremap [lsp]h :call LanguageClient#textDocument_hover()<CR>
+nnoremap [lsp]d :call LanguageClient#textDocument_definition()<CR>
+nnoremap [lsp]r :call LanguageClient#textDocument_rename()<CR>
+nnoremap [lsp]a :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap [lsp]s :call LanguageClient#handleCodeLensAction()<CR>
+nnoremap [lsp]f :call LanguageClient#textDocument_formatting()<CR>
 '''
