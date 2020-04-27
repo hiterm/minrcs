@@ -122,6 +122,7 @@ xmap A  <Plug>(niceblock-A)
 # completion
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+lazy = 1
 if = "has('nvim') && has('python3')"
 on_event = 'InsertEnter'
 hook_add = '''
