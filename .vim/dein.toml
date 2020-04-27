@@ -29,12 +29,15 @@ augroup nord-overrides
 augroup END
 colorscheme nord
 " lightline
-let g:lightline = {}
+if !exists('g:lightline')
+  let g:lightline = {}
+endif
 let g:lightline.colorscheme = 'nord'
 '''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = 'source ~/.vim/lightline.rc.vim'
 
 # fzf
 [[plugins]]
