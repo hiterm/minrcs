@@ -175,7 +175,7 @@ let g:LanguageClient_hasSnippetSupport = 1
 let g:LanguageClient_settingsPath = '~/.vim/settings.json'
 
 let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rust-analyzer'],
+      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
       \ 'python': ['pyls'],
       \ 'ruby': ['solargraph', 'stdio'],
       \ 'javascript': ['javascript-typescript-stdio'],
@@ -183,6 +183,7 @@ let g:LanguageClient_serverCommands = {
       \ 'javascript.jsx': ['javascript-typescript-stdio'],
       \ 'typescript.tsx': ['javascript-typescript-stdio'],
       \ 'cpp': ['clangd'],
+      \ 'go' : ['gopls'],
       \ }
 
 let g:LanguageClient_rootMarkers = {
@@ -235,3 +236,7 @@ nnoremap [lsp]a :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap [lsp]s :call LanguageClient#handleCodeLensAction()<CR>
 nnoremap [lsp]f :call LanguageClient#textDocument_formatting()<CR>
 '''
+
+# other
+[[plugins]]
+repo = 'mattn/emmet-vim'

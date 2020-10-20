@@ -86,6 +86,8 @@ augroup MyAutoCmd
   autocmd FileType eruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd FileType haml setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd FileType sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd FileType markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 augroup END
 
 " いらないキーを無効化
@@ -105,3 +107,9 @@ set hidden
 
 " fold
 set foldmethod=marker
+
+" 前にカーソルがあった場所を開く
+augroup ReopenGroup
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END
